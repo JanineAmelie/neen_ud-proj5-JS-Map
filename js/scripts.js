@@ -58,6 +58,7 @@ var Pin = function(data) {
     //create an onClick event to open an infowindow at this pin.
     pin.addListener('click', function() {
         populateInfoWindow(this, infoWindow, bI);
+
     });
 
     this.isVisible = ko.observable(false);
@@ -112,8 +113,8 @@ function populateInfoWindow(marker, infowindow, bI) {
             jsonpCallback: 'cb',
             success: function(response) {
                 console.log("SUCCCESS! %o", response);
-              bar = response;
-              var yelpObj = {
+                bar = response;
+                var yelpObj = {
                     iwUrl: response.url,
                     iwTitle: response.name,
                     iwAddress: arrayToString(response.location.display_address),
@@ -126,7 +127,7 @@ function populateInfoWindow(marker, infowindow, bI) {
 
                 var finalHTML = createContent(yelpObj);
 
-               infowindow.setContent('<div>' + finalHTML + '</div>');
+                infowindow.setContent('<div>' + finalHTML + '</div>');
 
                 map.panTo(marker.getPosition())
                 infowindow.open(map, marker);
@@ -136,6 +137,14 @@ function populateInfoWindow(marker, infowindow, bI) {
                     console.log(1)
                     infowindow.marker = null;
                 });
+                //moves the arrow on top of the pin because of gMaps' quirkiness
+                setTimeout(function() {
+                    $('.gm-style').children(':first').children(':nth-child(4)').children(':nth-child(4)').children(':nth-child(1)').children(':nth-child(1)').children(':nth-child(3)').css('left', '55px');
+                    $('.gm-style').children(':first').children(':nth-child(4)').children(':nth-child(4)').children(':nth-child(1)').children(':nth-child(1)').children(':nth-child(1)').css('left', '55px');
+                }, 300);
+
+
+
 
             },
             error: function(error) {
@@ -145,6 +154,9 @@ function populateInfoWindow(marker, infowindow, bI) {
 
         $.ajax(settings);
     }
+
+    // $('.gm-style').children(':first').children(':nth-child(4)').children(':nth-child(4)').children(':nth-child(1)').children(':nth-child(1)').children(':nth-child(1)').css('left', '55px')
+
 }
 
 var mapViewModel = function() {
@@ -174,7 +186,7 @@ var mapViewModel = function() {
 
         var thisMarker = markersArray[thisPlaceID]
 
-        populateInfoWindow(thisMarker, infoWindow , thisPlaceBizID);
+        populateInfoWindow(thisMarker, infoWindow, thisPlaceBizID);
     }
 
     //Search bar functionality

@@ -576,9 +576,8 @@ button.close {
     border-radius: 200px;
     margin-right: 29px!important;
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-
-
 }
+
 .close-iw span {
     margin: 3px 0 0 -13px;
     position: fixed;
@@ -780,25 +779,6 @@ button.close {
   border-left-color: #dd050b;
 }
 
- #iw-container .iw-title {
-        position: fixed;
-        z-index: 99;
-        width: 305px;
-        margin-top: -70px;
-    }
-
-    #iw-container {
-          padding-top: 70px;
-    }
-
-    .location-span {
-       width: 230px!important;
-    }
-
-    .close-iw {
-      margin-right:-18px!important;
-    }
-
 /*MEDIA QUERIES*/
 /* Large Devices, Wide Screens */
 
@@ -855,7 +835,8 @@ button.close {
 /* Extra Small Devices, Phones */
 
 @media only screen and (max-width: 480px) {
-   #iw-container .iw-title {
+
+     #iw-container .iw-title {
         position: fixed;
         z-index: 99;
         width: 305px;
@@ -871,7 +852,7 @@ button.close {
     }
 
     .close-iw {
-      margin-right:-18px!important;
+      margin-right:-18px;
     }
 
 }
