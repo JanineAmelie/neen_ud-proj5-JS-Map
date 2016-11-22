@@ -328,6 +328,7 @@ function infoWindowEdit() {
             $('.iw-bottom-gradient').css({ display: 'none' });
         }
 
+        $('.gm-style-iw').children().css('max-width', '305px');
 
     });
 }
