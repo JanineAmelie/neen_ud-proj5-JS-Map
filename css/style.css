@@ -780,7 +780,24 @@ button.close {
   border-left-color: #dd050b;
 }
 
+ #iw-container .iw-title {
+        position: fixed;
+        z-index: 99;
+        width: 305px;
+        margin-top: -70px;
+    }
 
+    #iw-container {
+          padding-top: 70px;
+    }
+
+    .location-span {
+       width: 230px!important;
+    }
+
+    .close-iw {
+      margin-right:-18px!important;
+    }
 
 /*MEDIA QUERIES*/
 /* Large Devices, Wide Screens */
