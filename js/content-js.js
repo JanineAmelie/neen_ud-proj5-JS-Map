@@ -175,10 +175,11 @@ var styles = [{
 // iwTitle
 // iwAddress
 // iwPic
-// iwHtmlStars
+// iwRating
 // iwCost
 // iwReviews
 // iwCuisines
+
 function arrayToString(anArray) {
     var stringToReturn = '';
     for (var i = 0; i < anArray.length; i++) {
@@ -187,56 +188,7 @@ function arrayToString(anArray) {
     return stringToReturn;
 };
 
-
 function createContent(yelpObj) {
-    function createStarHtml(reviewNum) {
-        var starsLi =
-            '  <i class="star-1">★</i>' +
-            '  <i class="star-2">★</i>' +
-            '  <i class="star-3">★</i>' +
-            '  <i class="star-4">★</i>' +
-            '  <i class="star-5">★</i>' +
-            '</div>'
-
-        function starHtmlChanger(num) {
-            var theHtml = '<div class="rating rating-' + num + ' "> ' + starsLi;
-            return theHtml;
-        }
-
-        switch (reviewNum) {
-            case 1:
-                return starHtmlChanger('1')
-                break
-            case 1.5:
-                return starHtmlChanger('1-half')
-                break
-            case 2:
-                return starHtmlChanger('2')
-                break
-            case 2.5:
-                return starHtmlChanger('2-half')
-                break
-            case 3:
-                return starHtmlChanger('3')
-                break
-            case 3.5:
-                return starHtmlChanger('3-half')
-                break
-            case 4:
-                return starHtmlChanger('4')
-                break
-            case 4.5:
-                return starHtmlChanger('4-half')
-                break
-            case 5:
-                return starHtmlChanger('5')
-                break
-        }
-    }
-
-    var starHtml = createStarHtml(yelpObj.iwHtmlStars);
-
-    console.log('-----------------------------------');
 
     var contentHtml = '<div id="iw-container">' +
         '    <div class="iw-title blk">' +
@@ -261,7 +213,7 @@ function createContent(yelpObj) {
         '        </div>' +
         '      </div>' +
         '      <div class="col-xs-8 iw-right">' +
-        '        <span class="iw-subTitle blk">Rating</span>' + starHtml +
+        '        <span class="iw-subTitle blk">Rating</span>' + '<span class="blk"><img height="22" src="'+ yelpObj.iwRating +'" alt="Yelp"></span>' +
         '        <span class="iw-subText"> Based on </span> <span class="iw-subText">' + yelpObj.iwReviews + '</span> <span class="iw-subText">reviews </span>' +
         '        <span class="iw-subTitle blk">Phone</span>' +
         '        <div class="blk">' +
@@ -276,59 +228,82 @@ function createContent(yelpObj) {
     return contentHtml;
 }
 
+/* UI CODE */
+var isFocused = false;
+var searchPos = $('#the-search').offset();
 
-function infoWindowEdit() {
-    // *
-    // START INFOWINDOW CUSTOMIZE.
-    // The google.maps.event.addListener() event expects
-    // the creation of the infowindow HTML structure 'domready'
-    // and before the opening of the infowindow, defined styles are applied.
-    // *
-    google.maps.event.addListener(infoWindow, 'domready', function() {
+//on focus of the search bar:
+$("#main-search-bar").focus(function() {
+    isFocused = true;
+    $(".results-container").slideToggle(300, function() {});
 
-        // Reference to the DIV that wraps the bottom of infowindow
-        var iwOuter = $('.gm-style-iw');
+    checkSize();
+});
 
-        /* Since this div is in a position prior to .gm-div style-iw.
-         * We use jQuery and create a iwBackground variable,
-         * and took advantage of the existing reference .gm-style-iw for the previous div with .prev().
-         */
-        var iwBackground = iwOuter.prev();
+$("#main-search-bar").focusout(function() {
+    isFocused = false;
+    $(".results-container").slideToggle(600, function() {});
 
-        // Removes background shadow DIV
-        iwBackground.children(':nth-child(2)').css({ 'display': 'none' });
+    checkSize();
+});
 
-        // Removes white background DIV
-        iwBackground.children(':nth-child(4)').css({ 'display': 'none' });
+function checkSize() {
+    searchPos = $('#the-search').offset();
+    if ($(document).width() > 992 && isFocused == true) {
+        //code to set search bar left
+        $('#the-search').css('float', 'left');
 
-        // Moves the infowindow 115px to the right.
-        iwOuter.parent().parent().css({ left: '115px' });
+        //change infobtn size
+        $('.info-btn').css('height', '80');
+        $('.info-btn').css('width', '80');
 
-        // Moves the shadow of the arrow 76px to the left margin.
-        iwBackground.children(':nth-child(1)').attr('style', function(i, s) {
-            return s + 'left: 50px !important;'
-        });
+        $('.results-container').css('margin', '')
+        $('.results-container').css('position', '')
+        $('.results-container').css('left', searchPos.left);
 
 
-        // iwBackground.children(':nth-child(3)').attr('style', function(i, s) {
-        //     return s + 'left: 50px !important;'
-        // });
+    } else if ($(document).width() > 992 && isFocused == false) {
+        //code to set search bar left
+        $('#the-search').css('float', 'left');
 
-        // Changes the desired tail shadow color.
-        iwBackground.children(':nth-child(3)').find('div').children().css({ 'box-shadow': 'rgba(72, 181, 233, 0.6) 0px 1px 6px', 'z-index': '1' });
+        //change infobtn size
+        $('.info-btn').css('height', '80');
+        $('.info-btn').css('width', '80');
 
-        // Reference to the div that groups the close button elements.
-        var iwCloseBtn = iwOuter.next();
-        iwCloseBtn.addClass('close-iw');
-        $('.close-iw').html('<span>x</span>');
-        // Apply the desired effect to the close button
 
-        // If the content of infowindow not exceed the set maximum height, then the gradient is removed.
-        if ($('.iw-content').height() < 140) {
-            $('.iw-bottom-gradient').css({ display: 'none' });
-        }
+    } else if ($(document).width() <= 992 && isFocused == true) {
+        //centers the searchbar
+        $('#the-search').css('float', 'none');
+        $('.search-bar-container').removeClass('col-xs-6');
+        $('.search-bar-container').addClass('col-xs-12');
 
-        $('.gm-style-iw').children().css('max-width', '305px');
+        //hide the info-btn
+        $('.info-btn-container').css('display', 'none');
 
-    });
+        //center search results
+        $('.results-container').css('left', '')
+        $('.results-container').css('margin', '0 auto')
+        $('.results-container').css('position', 'relative')
+
+    } else if ($(document).width() <= 992 && isFocused == false) {
+        $('#the-search').css('float', 'right');
+
+        $('.search-bar-container').removeClass('col-xs-12');
+        $('.search-bar-container').addClass('col-xs-6');
+
+        //shows the round info-btn (i)
+        $('.info-btn-container').css('display', 'unset');
+        $('.info-btn').css('height', '40px');
+        $('.info-btn').css('width', '40px');
+
+    }
 }
+$(function() {
+    $('[data-toggle="tooltip"]').tooltip()
+})
+
+// checkSize();
+
+$(window).resize(function() {
+    checkSize();
+});

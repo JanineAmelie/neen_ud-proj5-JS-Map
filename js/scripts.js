@@ -2,8 +2,6 @@
 var map;
 var infoWindow;
 var myLatLng;
-var bounds;
-
 //Create Instance of a map from the Google maps api
 //Grab the reference to the "map-canvas" id to display map
 //Set the map options object properties
@@ -12,13 +10,12 @@ function startMap() {
     initMap();
     google.maps.event.addDomListener(window, 'resize', centerMap);
     google.maps.event.addDomListener(window, 'load', centerMap);
-    infoWindowEdit()
+    //infoWindowEdit()
 }
 
 function centerMap() {
     map.setCenter({ lat: 14.560517, lng: 120.989446 });
     map.setZoom(13);
-
 }
 
 function initMap() {
@@ -35,6 +32,7 @@ function initMap() {
     //assigned to different locations or markers upon click.
     infoWindow = new google.maps.InfoWindow();
 };
+
 var markersArray = [];
 //Map Pin Constructor Function
 var Pin = function(data) {
@@ -53,12 +51,17 @@ var Pin = function(data) {
         animation: google.maps.Animation.DROP,
     });
 
+    this.toggleBounce = function() {
+         pin.setAnimation(google.maps.Animation.BOUNCE);
+      setTimeout(function(){ pin.setAnimation(null); }, 1400);
+      };
+
+    pin.addListener('click', this.toggleBounce);
     var bI = data.bizId;
     markersArray.push(pin);
     //create an onClick event to open an infowindow at this pin.
     pin.addListener('click', function() {
         populateInfoWindow(this, infoWindow, bI);
-
     });
 
     this.isVisible = ko.observable(false);
@@ -119,7 +122,7 @@ function populateInfoWindow(marker, infowindow, bI) {
                     iwTitle: response.name,
                     iwAddress: arrayToString(response.location.display_address),
                     iwPic: response.image_url,
-                    iwHtmlStars: response.rating,
+                    iwRating: response.rating_img_url_large,
                     iwPhone: response.display_phone,
                     iwReviews: response.review_count,
                     iwCuisines: response.categories[0][0]
@@ -134,28 +137,17 @@ function populateInfoWindow(marker, infowindow, bI) {
 
                 // Make sure the marker property is cleared if the infowindow is closed.
                 infowindow.addListener('closeclick', function() {
-                    console.log(1)
                     infowindow.marker = null;
                 });
-                //moves the arrow on top of the pin because of gMaps' quirkiness
-                setTimeout(function() {
-                    $('.gm-style').children(':first').children(':nth-child(4)').children(':nth-child(4)').children(':nth-child(1)').children(':nth-child(1)').children(':nth-child(3)').css('left', '55px');
-                    $('.gm-style').children(':first').children(':nth-child(4)').children(':nth-child(4)').children(':nth-child(1)').children(':nth-child(1)').children(':nth-child(1)').css('left', '55px');
-                }, 300);
-
-
-
 
             },
             error: function(error) {
-                alert('Yelp API response error ' + error);
+                alert('Unable to fetch Yelp data');
             }
         };
 
         $.ajax(settings);
     }
-
-    // $('.gm-style').children(':first').children(':nth-child(4)').children(':nth-child(4)').children(':nth-child(1)').children(':nth-child(1)').children(':nth-child(1)').css('left', '55px')
 
 }
 
@@ -186,6 +178,10 @@ var mapViewModel = function() {
 
         var thisMarker = markersArray[thisPlaceID]
 
+        thisMarker.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout(function(){ thisMarker.setAnimation(null); }, 1400);
+
+        console.log(thisMarker);
         populateInfoWindow(thisMarker, infoWindow, thisPlaceBizID);
     }
 
@@ -228,100 +224,10 @@ var mapViewModel = function() {
 
 };
 
-
-/* UI CODE */
-var isFocused = false;
-var searchPos = $('#the-search').offset();
-
 //binds the mapViewModel to the view
 //is only called after the gmaps API url callback
 function bind() {
     ko.applyBindings(mapViewModel);
 }
 
-//on focus of the search bar:
-$("#main-search-bar").focus(function() {
-    isFocused = true;
-    $(".results-container").slideToggle(300, function() {});
 
-    checkSize();
-});
-
-
-$("#main-search-bar").focusout(function() {
-    isFocused = false;
-    $(".results-container").slideToggle(600, function() {});
-
-    checkSize();
-});
-
-function checkSize() {
-    searchPos = $('#the-search').offset();
-    if ($(document).width() > 992 && isFocused == true) {
-        //code to set search bar left
-        $('#the-search').css('float', 'left');
-
-        //change infobtn size
-        $('.info-btn').css('height', '80');
-        $('.info-btn').css('width', '80');
-
-        $('.results-container').css('margin', '')
-        $('.results-container').css('position', '')
-        $('.results-container').css('left', searchPos.left);
-
-
-    } else if ($(document).width() > 992 && isFocused == false) {
-        //code to set search bar left
-        $('#the-search').css('float', 'left');
-
-        //change infobtn size
-        $('.info-btn').css('height', '80');
-        $('.info-btn').css('width', '80');
-
-
-    } else if ($(document).width() <= 992 && isFocused == true) {
-        //centers the searchbar
-        $('#the-search').css('float', 'none');
-        $('.search-bar-container').removeClass('col-xs-6');
-        $('.search-bar-container').addClass('col-xs-12');
-
-        //hide the info-btn
-        $('.info-btn-container').css('display', 'none');
-
-        //center search results
-        $('.results-container').css('left', '')
-        $('.results-container').css('margin', '0 auto')
-        $('.results-container').css('position', 'relative')
-
-    } else if ($(document).width() <= 992 && isFocused == false) {
-        $('#the-search').css('float', 'right');
-
-        $('.search-bar-container').removeClass('col-xs-12');
-        $('.search-bar-container').addClass('col-xs-6');
-
-        //shows the round info-btn (i)
-        $('.info-btn-container').css('display', 'unset');
-        $('.info-btn').css('height', '40px');
-        $('.info-btn').css('width', '40px');
-
-    }
-}
-$(function() {
-    $('[data-toggle="tooltip"]').tooltip()
-})
-
-// checkSize();
-
-$(window).resize(function() {
-    checkSize();
-});
-
-
-
-//TODO:
-/*
-
-* Pin Colors
-*ajax call for data inside pins
-
-*/
