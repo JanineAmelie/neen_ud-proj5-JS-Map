@@ -1,4 +1,10 @@
-//Places of interest
+/* data.js */
+//contains the model
+//Map CSS
+//HTML generation for the infoWindow
+//and the UI animation code
+
+/*Places of interest */
 // Buffalo's Wings and Things
 // Nemoto Japanese Restaurant
 // Jus & Jerry's
@@ -75,7 +81,8 @@ var mapModel = [{
     id: 5
 }];
 
-
+//Custom Google map Styles,
+//sourced from https://snazzymaps.com/
 var styles = [{
     "featureType": "administrative.locality",
     "elementType": "labels",
@@ -170,6 +177,8 @@ var styles = [{
     }]
 }];
 
+
+/* The Variables passed in from yelpObject */
 // iwUrl
 // iwTitle
 // iwAddress
@@ -187,6 +196,17 @@ function arrayToString(anArray) {
     return stringToReturn;
 };
 
+
+//Creates the HTML to inject into the infoWindow on a
+//failed AJAX call
+function createFailedContent(yelpObj) {
+    var failedHtml = '<div id="iw-container"> <div class="iw-title blk"> <span class="main-title blk">' + yelpObj.iwTitle + '</span> </div> <div class="iw-content"> <div class="iw-error alert alert-danger"><strong><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Error: </strong>  Unable to fetch YELP API data. Please contact the webmaster or try again later. </div> </div> </div>'
+    return failedHtml;
+};
+
+//Function to create the content from a successfull
+//Ajax Call to the Yelp Api this html will be injected
+//into the infoWindow when the infoWindow is visible.
 function createContent(yelpObj) {
 
     var contentHtml = '<div id="iw-container">' +
@@ -227,7 +247,7 @@ function createContent(yelpObj) {
     return contentHtml;
 }
 
-/* UI CODE */
+
 var isFocused = false;
 var searchPos = $('#the-search').offset();
 
@@ -246,8 +266,23 @@ $("#main-search-bar").focusout(function() {
     checkSize();
 });
 
+
+/* UI CODE */
+
+//On larger screens:
+//the search bar is visible and large and the info button is too.
+//The Search bar when highlighted displays a dropdown list box right below the search bar.
+
+//On Smaller screens:
+//the search bar and infowindow are now small icons.
+//when the search icon is clicked, the icon expands to reveal a now large search bar that is centered.
+//The info icon disappears and reappears again when the search bar is small.
+//the search results are centered
+
 function checkSize() {
     searchPos = $('#the-search').offset();
+
+    //LARGE LAYOUTS laptop,desktop greater, UI Code
     if ($(document).width() > 992 && isFocused == true) {
         //code to set search bar left
         $('#the-search').css('float', 'left');
@@ -269,7 +304,7 @@ function checkSize() {
         $('.info-btn').css('height', '80');
         $('.info-btn').css('width', '80');
 
-
+    //SMALL LAYOUTS (Mobile & Tablet) UI Code
     } else if ($(document).width() <= 992 && isFocused == true) {
         //centers the searchbar
         $('#the-search').css('float', 'none');
@@ -287,6 +322,7 @@ function checkSize() {
     } else if ($(document).width() <= 992 && isFocused == false) {
         $('#the-search').css('float', 'right');
 
+        //Shows the infowindow button and
         $('.search-bar-container').removeClass('col-xs-12');
         $('.search-bar-container').addClass('col-xs-6');
 
@@ -297,12 +333,17 @@ function checkSize() {
 
     }
 }
+//function to add a tooltip to when the
+//refresh button is hovered over
 $(function() {
     $('[data-toggle="tooltip"]').tooltip()
 })
 
-// checkSize();
+$('.reset-map-zoom').on('click touchstart', function() {
+        centerMap();
+});
 
+//Event listener for the resizing of the window.
 $(window).resize(function() {
     checkSize();
 });

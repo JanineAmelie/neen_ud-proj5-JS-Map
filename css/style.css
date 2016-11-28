@@ -548,17 +548,8 @@ button.close {
     margin: 0 !important
 }
 
-
-.iw-bottom-gradient {
-    position: absolute;
-    width: 326px;
-    height: 25px;
-    bottom: 10px;
-    right: 18px;
-    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
-    background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
-    background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
-    background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+.iw-error {
+  font-size: 20px;
 }
 
 .close-iw{
@@ -611,7 +602,7 @@ button.close {
 .iw-img-container {
   width: 100px;
   height: 100px;
-  background-color:red;
+  background-color:#fff;
 }
 
 .iw-img-container img {
@@ -683,12 +674,13 @@ button.close {
     font-size: 11px;
     width: auto;
     }
+
 /*MEDIA QUERIES*/
 /* Large Devices, Wide Screens */
 
 @media only screen and (max-width: 1200px) {
 
-
+/* Placeholder if ever*/
 
 
 }
