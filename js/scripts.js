@@ -2,15 +2,40 @@
 var map;
 var infoWindow;
 var myLatLng;
-//Create Instance of a map from the Google maps api
-//Grab the reference to the "map-canvas" id to display map
-//Set the map options object properties
+/*
+function loadScript() {
 
+  //appends a script tag to the body of the document
+  var script = document.createElement("script");
+  script.type = "text/javascript";
+  script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBcL043-9E7Z9-65z5oi-XyIzLFVcCdA9g&callback=foo";
+
+  document.body.appendChild(script);
+}
+
+window.onload = loadScript;
+
+function foo() {
+    console.log('bar')
+    setTimeout(function () {
+        try{
+            if (!google || !google.maps) {
+                console.log('bar2')
+                //This will Throw the error if 'google' is not defined
+            }
+        }
+        catch (e) {
+            alert('foo');
+            //You can write the code for error handling here
+            //Something like alert('Ah...Error Occurred!');
+        }
+    }, 200);
+}
+*/
 function startMap() {
     initMap();
     google.maps.event.addDomListener(window, 'resize', centerMap);
     google.maps.event.addDomListener(window, 'load', centerMap);
-    //infoWindowEdit()
 }
 
 function centerMap() {
@@ -18,6 +43,9 @@ function centerMap() {
     map.setZoom(13);
 }
 
+//Create Instance of a map from the Google maps api
+//Grab the reference to the "map-canvas" id to display map
+//Set the map options object properties
 function initMap() {
     map = new google.maps.Map(document.getElementById('map-canvas'), {
         center: { lat: 14.560517, lng: 120.989446 },
@@ -28,8 +56,7 @@ function initMap() {
 
     //bind the viewModel to the View after the gmaps has been created.
     bind();
-    //create only one infowindow to display at a time when called, this is re
-    //assigned to different locations or markers upon click.
+    //create only one infowindow to display at a time when called, this is re assigned to different locations or markers upon click.
     infoWindow = new google.maps.InfoWindow();
 };
 
@@ -143,10 +170,24 @@ function populateInfoWindow(marker, infowindow, bI) {
             },
             error: function(error) {
                 alert('Unable to fetch Yelp data');
+
+                infowindow.setContent('<div>' + 'Unable to Fetch YelpData' + '</div>');
+
+                map.panTo(marker.getPosition())
+                infowindow.open(map, marker);
+
+                // Make sure the marker property is cleared if the infowindow is closed.
+                infowindow.addListener('closeclick', function() {
+                    infowindow.marker = null;
+                });
             }
         };
 
-        $.ajax(settings);
+        $.ajax(settings).done(function(){
+            //alert('done fetching data!');
+        }).fail(function(){
+            alert('Unable to fetch Yelp data');
+        });
     }
 
 }

@@ -7,7 +7,6 @@
 // Cafe Travel
 // Ping Yang Hot Pot & Dimsum
 // Bistro Ravioli
-//
 
 var mapModel = [{
     title: 'Nemoto',

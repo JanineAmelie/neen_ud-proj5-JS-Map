@@ -683,12 +683,13 @@ button.close {
     font-size: 11px;
     width: auto;
     }
+
 /*MEDIA QUERIES*/
 /* Large Devices, Wide Screens */
 
 @media only screen and (max-width: 1200px) {
 
-
+/* Placeholder if ever*/
 
 
 }
