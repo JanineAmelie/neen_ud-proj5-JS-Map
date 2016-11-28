@@ -24,11 +24,13 @@ I developed a singe-page-application (SPA) featuring a map of my neighborhood. T
 
 ###Project-Information
 
-- **Features:**
+- **Features / Tools used:**
   -  AJAX requests
   -  Utilized the [Knockout Javascript Framework](http://knockoutjs.com/), a MVVM framework.
   -  [Google Maps API](https://developers.google.com/maps/)
   -  [Yelp Fusion Api](https://www.yelp.com/developers)
+  -  [SweetAlert2](https://limonte.github.io/sweetalert2/) beautiful customizable replacement for JavaScript popup boxes
+  -  [jQuery](https://jquery.com/)
 
 - **Project Specifications:**
   -   ✓ Responsive on Mobile, Tablet and Desktop
