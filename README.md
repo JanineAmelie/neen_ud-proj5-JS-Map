@@ -42,7 +42,10 @@ I developed a singe-page-application (SPA) featuring a map of my neighborhood. T
   - ✓ There are more than 5 locations
   -  ✓ Graceful Error Handling when yelp API is unable to load
   - ✓ Attribution is provided  to the YELP API
-
+  
+- **Project Development Sources/References:**
+  - [How to Create API URL using oAuth](https://forums.asp.net/t/1801674.aspx?how+to+create+API+URL+using+some+credentials)
+  - [Udacity Forum Discussion on oAuth](https://discussions.udacity.com/t/final-project-possible-to-use-yelp-api/32293/3)
 ---
 
 ### How-to-Run:
