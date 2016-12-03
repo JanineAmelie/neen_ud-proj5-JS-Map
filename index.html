@@ -20,7 +20,6 @@
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Normalize CSS - provides better crossbrowser consistency in the default styling of HTML elementsc-->
     <link rel="stylesheet" href="vendor/normalize.min.css">
-
     <!-- SweetAlert, Beautiful UI Alerts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.1.1/sweetalert2.css">
     <!-- Web Fonts -->
@@ -51,7 +50,7 @@
         </div>
     </nav>
     <div class="results-container z-depth-1">
-               <ul id="search-results" data-bind="foreach: filterPins, css: { notActive: match() == false }">
+        <ul id="search-results" data-bind="foreach: filterPins, css: { notActive: match() == false }">
             <li class="location-link" data-bind="">
                 <a data-bind="text: title, click: getPlace, attr: { id: id}"></a>
             </li>
@@ -79,14 +78,14 @@
                         <span class="blk"><a target="_blank" class="github-logo" alt="Neen Github" href="https://github.com/JanineLourens"><i class="fa fa-github" aria-hidden="true"></i></a></span>
                         <span class="small third"> about: </span>
                         <p class="m-text">
-                            A single page app (SPA) utilizing an MVVM framework that displays locations. The app pulls data about the filtered location from external APIs. <br>It is the 5th project for Udacity’s Front-End Nanodegree.</p>
+                            A single page app (SPA) utilizing an MVVM framework that displays locations. The app pulls data about the filtered location from external APIs.
+                            <br>It is the 5th project for Udacity’s Front-End Nanodegree.</p>
                     </div>
                     <span class="small third"> built with: </span>
                     <div class="logo-img-container text-center">
-                    <img class="img-responsive" src="images/logos.png" alt="tech-used">
-                    <img src="images/yelp-logo-grey.png" alt="yelp" class="img-respongsive">
+                        <img class="img-responsive" src="images/logos.png" alt="tech-used">
+                        <img src="images/yelp-logo-grey.png" alt="yelp" class="img-respongsive">
                     </div>
-
                 </div>
             </div>
         </div>
@@ -103,19 +102,28 @@
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
     <!-- Knockout JS Framework -->
     <script src="vendor/knockout.js"></script>
-
     <!-- OAUTH LIBRARIES -->
     <script src="vendor/hmac-sha1.js"></script>
     <script src="vendor/oauth-signature.min.js"></script>
-
     <!-- SweetAlert2, Beautiful Alert UI -->
     <script src="https://cdn.jsdelivr.net/sweetalert2/6.1.1/sweetalert2.min.js"></script>
-
     <!-- CUSTOM JS -->
     <script src="js/data.js"></script>
     <script src="js/scripts.js"></script>
+    <script>
+    function googleSuccess() {
+        initMap();
+    };
 
+    function googleError() {
+        swal(
+            'Unable to load Gmaps!',
+            'Please try again later',
+            'error'
+        );
+    }
     </script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcL043-9E7Z9-65z5oi-XyIzLFVcCdA9g&callback=googleSuccess" onerror="googleError()"></script>
 </body>
 
 </html>

@@ -3,7 +3,7 @@ var map;
 var infoWindow;
 var myLatLng;
 var markersArray = [];
-
+/*
 function loadScript() {
     //creating a script tag that will be appended to
     //the bottom of index.html
@@ -26,28 +26,18 @@ function loadScript() {
         } catch (e) {
             //Swal is a function from a library called
             //sweetAlert2 it creates beautiful responsive alert UI
-            swal(
-              'Unable to load Gmaps!',
-              'The error is:   ' + e,
-              'error'
-            )
+
         }
     }, 1000);
     //Appends the script element to the body
     document.body.appendChild(script);
-}
-
-//starts the whole process
+    //starts the whole process
 window.onload = loadScript;
-
-function startMap() {
-    initMap();
-    //adds event listeners to the google maps
-    //only want the event listeners to be created after
-    //a successful creation of a map
-    google.maps.event.addDomListener(window, 'resize', centerMap);
-    google.maps.event.addDomListener(window, 'load', centerMap);
 }
+*/
+
+
+
 
 //centerMap function called on resize and load
 //and also called when the user clicks the little
@@ -72,6 +62,12 @@ function initMap() {
     bind();
     //create only one infowindow to display at a time when called, this is re assigned to different locations or markers upon click.
     infoWindow = new google.maps.InfoWindow();
+
+    //adds event listeners to the google maps
+    //only want the event listeners to be created after
+    //a successful creation of a map
+    google.maps.event.addDomListener(window, 'resize', centerMap);
+    google.maps.event.addDomListener(window, 'load', centerMap);
 };
 
 //Map Pin Constructor Function
