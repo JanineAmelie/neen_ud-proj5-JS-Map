@@ -247,7 +247,14 @@ var mapViewModel = function() {
         //filter is an array containing pins that match your search term
         // Note-To-Self: Read ff http://www.knockmeout.net/2011/04/utility-functions-in-knockoutjs.html documentation 
         //to remind yourself
+
+        
         var filter = ko.utils.arrayFilter(self.pins(), function(pin) {
+            
+            //pass in an array, the pins 
+            //controls which items are included in the array of pins, 
+            //based on the result  of the function executed on each item
+            //source: http://www.knockmeout.net/2011/04/utility-functions-in-knockoutjs.html
             var doesMatch = pin.title().toLowerCase().indexOf(search) >= 0;
 
             pin.isVisible(doesMatch)
