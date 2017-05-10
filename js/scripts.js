@@ -245,6 +245,8 @@ var mapViewModel = function() {
         //this array filter checks if the condition is true or false; function(pin) is the condition, what matches.
         //loops through the pins and returns true or false depending if the search string is part of the pin.title()
         //filter is an array containing pins that match your search term
+        // Note-To-Self: Read ff http://www.knockmeout.net/2011/04/utility-functions-in-knockoutjs.html documentation 
+        //to remind yourself
         var filter = ko.utils.arrayFilter(self.pins(), function(pin) {
             var doesMatch = pin.title().toLowerCase().indexOf(search) >= 0;
 
