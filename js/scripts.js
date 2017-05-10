@@ -3,40 +3,6 @@ var map;
 var infoWindow;
 var myLatLng;
 var markersArray = [];
-/*
-function loadScript() {
-    //creating a script tag that will be appended to
-    //the bottom of index.html
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-
-    //the API script
-    //its callback calls the function startMap();
-    script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBcL043-9E7Z9-65z5oi-XyIzLFVcCdA9g&callback=startMap";
-
-    //Timeout function to check if googlemaps has successfully loaded
-    //And gracefully handles the error by displaying an alert box
-    setTimeout(function() {
-        try {
-            if (!google || !google.maps) {
-                //This will Throw the error if 'google' is not defined
-            } else {
-                console.log('Maps Successfully Loaded');
-            }
-        } catch (e) {
-            //Swal is a function from a library called
-            //sweetAlert2 it creates beautiful responsive alert UI
-
-        }
-    }, 1000);
-    //Appends the script element to the body
-    document.body.appendChild(script);
-    //starts the whole process
-window.onload = loadScript;
-}
-*/
-
-
 
 
 //centerMap function called on resize and load
