@@ -22,7 +22,7 @@ I developed a singe-page-application (SPA) featuring a map of my neighborhood. T
 
 ---
 
-###Project-Information
+### Project-Information
 
 - **Features / Tools used:**
   -  AJAX requests
@@ -70,7 +70,7 @@ OR
 ```
 
 
-###**Creating-a-LocalHost**
+### **Creating-a-LocalHost**
 Create a web server using your favorite method or if you don't know how, an easy way is to use XAMPP or Python's simpleserver
 
 ##### **Using XAMPP **
