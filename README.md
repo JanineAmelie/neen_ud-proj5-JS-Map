@@ -2,7 +2,7 @@
 Neighborhood Map
 ---
 
-###Table of Contents
+### Table of Contents
 1. [Project Overview](#project-overview)
 2. [Final Product](#final-product)
 3. [Project Information](#project-information)
@@ -11,7 +11,7 @@ Neighborhood Map
 
 ---
 
-###Project-Overview
+### Project-Overview
 
 I developed a singe-page-application (SPA) featuring a map of my neighborhood. The map displays highlighted locations, utilizes an MVVM framework to dynamically filter locations and retrieves data about the selected location from third party APIs.
 
