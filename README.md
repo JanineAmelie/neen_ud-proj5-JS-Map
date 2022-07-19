@@ -90,5 +90,5 @@ or
 
 
 #### **Testing Live:**
-View the site live here: https://ninineen.github.io/neen_ud-proj5-JS-Map/
+View the site live here: https://janineamelie.github.io/neen_ud-proj5-JS-Map/
 
