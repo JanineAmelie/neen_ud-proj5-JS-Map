@@ -16,7 +16,7 @@ Neighborhood Map
 I developed a singe-page-application (SPA) featuring a map of my neighborhood. The map displays highlighted locations, utilizes an MVVM framework to dynamically filter locations and retrieves data about the selected location from third party APIs.
 
 ---
-###Final-Product
+### Final-Product
 
 ![enter image description here](https://www.dropbox.com/s/of8u5xwsp6pbweu/neighborhoodsm.png?raw=1)
 
